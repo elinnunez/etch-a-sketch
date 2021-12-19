@@ -16,7 +16,7 @@ body {
     align-items: center;
     height: 100vh;
     border-radius: 80px;
-    background-color: rgb(224, 79, 79)
+    background-color: rgb(224, 79, 79);
 }
 
 .header {
@@ -39,7 +39,8 @@ h1 {
     display: grid;
     height: 650px;
     width: 650px;
-    border: 1px solid rgb(158, 155, 155);
+    border: 2px solid rgb(73, 72, 72);
+    border-radius: 5px;
 }
 
 @media only screen and (max-width: 720px) {
