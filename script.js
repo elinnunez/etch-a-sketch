@@ -97,7 +97,7 @@ const clear = document.querySelector(".reset");
 
 clear.addEventListener("click", () => {
   setToFalse();
-  document.querySelector("#input-color").value = "black";
+  document.querySelector("#input-color").value = "rgb(0, 0, 0)";
   let pixel = document.querySelectorAll(".pixel");
   pixel.forEach((pix) => {
     pix.style.backgroundColor = "rgb(182, 178, 178)";
