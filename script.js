@@ -25,18 +25,31 @@ slider.addEventListener('input', () => {
 });
 
 slider.addEventListener('mouseup', () => {
+  erase = false;
   gridContainer.innerHTML = "";
   createGrid(slider.value);
 })
 
+const eraser = document.querySelector('.eraser');
+
+let erase = false;
+eraser.addEventListener('click', () => {
+  erase = true;
+})
+
 gridContainer.addEventListener('mouseover', (e) => {
-  e.target.style.backgroundColor = "black";
+  if(erase == true) {
+    e.target.style.backgroundColor = "rgb(182, 178, 178)";
+  } else {
+    e.target.style.backgroundColor = "black";
+  }
 });
 
 
 const clear = document.querySelector(".reset");
 
 clear.addEventListener('click', () => {
+  erase = false;
   let pixel = document.querySelectorAll(".pixel");
   pixel.forEach((pix) => {
     pix.style.backgroundColor = "rgb(182, 178, 178)";
