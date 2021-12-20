@@ -6,8 +6,22 @@ const sliderp = document.querySelector(".rangepick p");
 
 let newsize;
 
+var dict = {
+  erase: false,
+  rainbowfy: false,
+  color: false,
+  shadify: false,
+  lightenify: false,
+};
+
+const setToFalse = () => {
+  for (let x in dict) {
+    dict[x] = false;
+  }
+};
+
 const createGrid = (size) => {
-  for(let i = 0; i < size * size; i++) {
+  for (let i = 0; i < size * size; i++) {
     let pixel = document.createElement("div");
     pixel.classList.add("pixel");
     pixel.style.backgroundColor = "rgb(182, 178, 178)";
@@ -17,39 +31,73 @@ const createGrid = (size) => {
 
   gridContainer.style.gridTemplateColumns = `repeat(${size}, auto)`;
   gridContainer.style.gridTemplateRows = `repeat(${size}, auto)`;
-}
+};
 
-slider.addEventListener('input', () => {
+slider.addEventListener("input", () => {
   sliderp.textContent = slider.value + " x " + slider.value;
   newsize = slider.value;
 });
 
-slider.addEventListener('mouseup', () => {
-  erase = false;
+slider.addEventListener("mouseup", () => {
+  setToFalse();
   gridContainer.innerHTML = "";
   createGrid(slider.value);
+});
+
+const eraser = document.querySelector(".eraser");
+const rainbow = document.querySelector(".rainbow");
+const shader = document.querySelector(".shader");
+const lighten = document.querySelector(".lighten");
+const colorfy = document.querySelector(".colorpick");
+
+eraser.addEventListener("click", () => {
+  setToFalse();
+  dict.erase = true;
+});
+
+rainbow.addEventListener("click", () => {
+  setToFalse();
+  dict.rainbowfy = true;
+});
+
+shader.addEventListener("click", () => {
+  setToFalse();
+  dict.shadify = true;
+});
+
+lighten.addEventListener("click", () => {
+  setToFalse();
+  // dict.color = true;
+  dict.lightenify = true;
+});
+
+colorfy.addEventListener("click", () => {
+  setToFalse();
+  dict.color = true;
 })
 
-const eraser = document.querySelector('.eraser');
-
-let erase = false;
-eraser.addEventListener('click', () => {
-  erase = true;
-})
-
-gridContainer.addEventListener('mouseover', (e) => {
-  if(erase == true) {
+gridContainer.addEventListener("mouseover", (e) => {
+  if (dict.erase == true) {
     e.target.style.backgroundColor = "rgb(182, 178, 178)";
+  } else if (dict.rainbowfy == true) {
+    e.target.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;;
+  } else if (dict.shadify == true) {
+    e.target.style.backgroundColor = "blue";
+  } else if (dict.lightenify == true) {
+    e.target.style.backgroundColor = "orange";
+  } else if (dict.color == true) {
+    let chosenColor = document.querySelector("#input-color").value;
+    e.target.style.backgroundColor = chosenColor;
   } else {
     e.target.style.backgroundColor = "black";
   }
 });
 
-
 const clear = document.querySelector(".reset");
 
-clear.addEventListener('click', () => {
-  erase = false;
+clear.addEventListener("click", () => {
+  setToFalse();
+  document.querySelector("#input-color").value = "black";
   let pixel = document.querySelectorAll(".pixel");
   pixel.forEach((pix) => {
     pix.style.backgroundColor = "rgb(182, 178, 178)";
