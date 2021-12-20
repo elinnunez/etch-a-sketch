@@ -29,4 +29,18 @@ slider.addEventListener('mouseup', () => {
   createGrid(slider.value);
 })
 
+gridContainer.addEventListener('mouseover', (e) => {
+  e.target.style.backgroundColor = "black";
+});
+
+
+const clear = document.querySelector(".reset");
+
+clear.addEventListener('click', () => {
+  let pixel = document.querySelectorAll(".pixel");
+  pixel.forEach((pix) => {
+    pix.style.backgroundColor = "rgb(182, 178, 178)";
+  });
+});
+
 createGrid(16); //default when opening site;
