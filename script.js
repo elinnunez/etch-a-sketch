@@ -39,7 +39,7 @@ slider.addEventListener("input", () => {
 });
 
 slider.addEventListener("mouseup", () => {
-  setToFalse();
+  document.querySelector("#input-color").value = "rgb(0, 0, 0)";
   gridContainer.innerHTML = "";
   createGrid(slider.value);
 });
