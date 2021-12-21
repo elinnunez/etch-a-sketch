@@ -62,6 +62,7 @@ rainbow.addEventListener("click", () => {
 
 shader.addEventListener("click", () => {
   setToFalse();
+  // dict.color = true;
   dict.shadify = true;
 });
 
@@ -74,22 +75,29 @@ lighten.addEventListener("click", () => {
 colorfy.addEventListener("click", () => {
   setToFalse();
   dict.color = true;
-})
+});
 
 gridContainer.addEventListener("mouseover", (e) => {
   if (dict.erase == true) {
     e.target.style.backgroundColor = "rgb(182, 178, 178)";
   } else if (dict.rainbowfy == true) {
-    e.target.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;;
+    e.target.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
   } else if (dict.shadify == true) {
-    e.target.style.backgroundColor = "blue";
+    // if(!e.target.style.backgroundColor.includes("rgba")) {
+    //   e.target.style.backgroundColor.replace("rgb", "rgba").replace(')', ', 1)');
+    // } else {
+  
+    //   let bgco = e.target.style.backgroundColor.value
+      
+    //   bgco.replace(')', `, ${alpha})`);
+    // }
   } else if (dict.lightenify == true) {
-    e.target.style.backgroundColor = "orange";
+    e.target.style.backgroundColor = "blue";
   } else if (dict.color == true) {
     let chosenColor = document.querySelector("#input-color").value;
     e.target.style.backgroundColor = chosenColor;
   } else {
-    e.target.style.backgroundColor = "black";
+    e.target.style.backgroundColor = "rgb(0, 0, 0)";
   }
 });
 
