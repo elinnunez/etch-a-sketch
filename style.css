@@ -40,7 +40,6 @@ h1 {
     display: flex;
     align-items: center;
     justify-content: center;
-    /* border: 1px solid purple; */
     gap: 0.5em;
 }
 
@@ -53,6 +52,7 @@ button {
     font-weight: bold;
     border-radius: 8px;
     height: 2.5em;
+    background-color: rgb(241, 241, 184);
 }
 
 #input-color {
@@ -66,13 +66,13 @@ button {
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
-    border: 1px solid purple;
     font-size: 15px;
     font-weight: bold;
     background: white;
     border-radius: 8px;
     flex-wrap: wrap;
     padding: 5px;
+    background-color: rgb(241, 241, 184);
 }
 
 .grid {

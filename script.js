@@ -63,13 +63,11 @@ rainbow.addEventListener("click", () => {
 
 shader.addEventListener("click", () => {
   setToFalse();
-  // dict.color = true;
   dict.shadify = true;
 });
 
 lighten.addEventListener("click", () => {
   setToFalse();
-  // dict.color = true;
   dict.lightenify = true;
 });
 
@@ -79,32 +77,45 @@ colorfy.addEventListener("click", () => {
 });
 
 gridContainer.addEventListener("mouseover", (e) => {
-  if(e.target.classList.contains('pixel')) {
-  if (dict.erase == true) {
-    e.target.style.backgroundColor = "rgb(182, 178, 178)";
-  } else if (dict.rainbowfy == true) {
-    e.target.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
-  } else if (dict.lightenify == true) {
-    // console.log("OG COLOR: " + e.target.style.backgroundColor);
-    let ogcolor = e.target.style.backgroundColor;
-    if(!ogcolor.includes('rgba')) {
-      e.target.style.backgroundColor = ogcolor.replace("rgb", "rgba").replace(")", ", 0.9");
+  if (e.target.classList.contains("pixel")) {
+    if (dict.erase == true) {
+      e.target.style.backgroundColor = "rgb(182, 178, 178)";
+    } else if (dict.rainbowfy == true) {
+      e.target.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+    } else if (dict.lightenify == true) {
+      // console.log("OG COLOR: " + e.target.style.backgroundColor);
+      let ogcolor = e.target.style.backgroundColor;
+      if (!ogcolor.includes("rgba")) {
+        e.target.style.backgroundColor = ogcolor
+          .replace("rgb", "rgba")
+          .replace(")", ", 0.9");
+      } else {
+        let alpha = parseFloat(ogcolor.split(",")[3]);
+        alpha -= 0.1;
+        // console.log("NEW OPAC: " + alpha);
+        e.target.style.backgroundColor = ogcolor.replace(
+          /[\d\.]+\)$/g,
+          `${alpha})`
+        );
+      }
+    } else if (dict.shadify == true) {
+      var c = e.target.style.backgroundColor;
+      var rgb = c.match(/\d+/g);
+
+      if (rgb.length > 3) {
+        e.target.style.backgroundColor = `rgba(${rgb[0] - 50}, ${rgb[1] - 50
+          }, ${rgb[2] - 50}, ${rgb[4] / 10})`;
+      } else {
+        e.target.style.backgroundColor = `rgba(${rgb[0] - 50}, ${rgb[1] - 50
+          }, ${rgb[2] - 50})`;
+      }
+    } else if (dict.color == true) {
+      let chosenColor = document.querySelector("#input-color").value;
+      e.target.style.backgroundColor = chosenColor;
     } else {
-      let alpha= parseFloat(ogcolor.split(',')[3]);
-      alpha-= .1;
-      // console.log("NEW OPAC: " + alpha);
-      e.target.style.backgroundColor = ogcolor.replace(/[\d\.]+\)$/g, `${alpha})`);
+      e.target.style.backgroundColor = "rgb(0, 0, 0)";
     }
-    
-  } else if (dict.shadify == true) {
-    e.target.style.backgroundColor = "rgb(0,0,255)";
-  } else if (dict.color == true) {
-    let chosenColor = document.querySelector("#input-color").value;
-    e.target.style.backgroundColor = chosenColor;
-  } else {
-    e.target.style.backgroundColor = "rgb(0, 0, 0)";
   }
-}
 });
 
 const clear = document.querySelector(".reset");
