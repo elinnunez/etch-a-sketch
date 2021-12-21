@@ -41,6 +41,7 @@ slider.addEventListener("input", () => {
 slider.addEventListener("mouseup", () => {
   document.querySelector("#input-color").value = "rgb(0, 0, 0)";
   gridContainer.innerHTML = "";
+  setToFalse();
   createGrid(slider.value);
 });
 
@@ -78,34 +79,39 @@ colorfy.addEventListener("click", () => {
 });
 
 gridContainer.addEventListener("mouseover", (e) => {
+  if(e.target.classList.contains('pixel')) {
   if (dict.erase == true) {
     e.target.style.backgroundColor = "rgb(182, 178, 178)";
   } else if (dict.rainbowfy == true) {
     e.target.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
-  } else if (dict.shadify == true) {
-    // if(!e.target.style.backgroundColor.includes("rgba")) {
-    //   e.target.style.backgroundColor.replace("rgb", "rgba").replace(')', ', 1)');
-    // } else {
-  
-    //   let bgco = e.target.style.backgroundColor.value
-      
-    //   bgco.replace(')', `, ${alpha})`);
-    // }
   } else if (dict.lightenify == true) {
-    e.target.style.backgroundColor = "blue";
+    // console.log("OG COLOR: " + e.target.style.backgroundColor);
+    let ogcolor = e.target.style.backgroundColor;
+    if(!ogcolor.includes('rgba')) {
+      e.target.style.backgroundColor = ogcolor.replace("rgb", "rgba").replace(")", ", 0.9");
+    } else {
+      let alpha= parseFloat(ogcolor.split(',')[3]);
+      alpha-= .1;
+      // console.log("NEW OPAC: " + alpha);
+      e.target.style.backgroundColor = ogcolor.replace(/[\d\.]+\)$/g, `${alpha})`);
+    }
+    
+  } else if (dict.shadify == true) {
+    e.target.style.backgroundColor = "rgb(0,0,255)";
   } else if (dict.color == true) {
     let chosenColor = document.querySelector("#input-color").value;
     e.target.style.backgroundColor = chosenColor;
   } else {
     e.target.style.backgroundColor = "rgb(0, 0, 0)";
   }
+}
 });
 
 const clear = document.querySelector(".reset");
 
 clear.addEventListener("click", () => {
   setToFalse();
-  document.querySelector("#input-color").value = "rgb(0, 0, 0)";
+  document.querySelector("#input-color").value = "rgb(00, 00, 00)";
   let pixel = document.querySelectorAll(".pixel");
   pixel.forEach((pix) => {
     pix.style.backgroundColor = "rgb(182, 178, 178)";
