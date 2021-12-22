@@ -4,8 +4,6 @@ const gridContainer = document.querySelector(".grid");
 const slider = document.querySelector("#slider");
 const sliderp = document.querySelector(".rangepick p");
 
-let newsize;
-
 var dict = {
   erase: false,
   rainbowfy: false,
@@ -35,10 +33,9 @@ const createGrid = (size) => {
 
 slider.addEventListener("input", () => {
   sliderp.textContent = slider.value + " x " + slider.value;
-  newsize = slider.value;
 });
 
-slider.addEventListener("mouseup", () => {
+slider.addEventListener("change", () => {
   document.querySelector("#input-color").value = "rgb(0, 0, 0)";
   gridContainer.innerHTML = "";
   setToFalse();
