@@ -100,11 +100,17 @@ gridContainer.addEventListener("mouseover", (e) => {
       var rgb = c.match(/\d+/g);
 
       if (rgb.length > 3) {
-        e.target.style.backgroundColor = `rgba(${rgb[0] - 50}, ${rgb[1] - 50
-          }, ${rgb[2] - 50}, ${rgb[4] / 10})`;
+        if (rgb.length == 4 && rgb[3] == 0) {
+          e.target.style.backgroundColor = `rgba(182, 178, 178, 0.2)`;
+        } else {
+          e.target.style.backgroundColor = `rgba(${rgb[0] - 50}, ${
+            rgb[1] - 50
+          }, ${rgb[2] - 50}, ${(rgb[4]/10) + 0.1})`;
+        }
       } else {
-        e.target.style.backgroundColor = `rgba(${rgb[0] - 50}, ${rgb[1] - 50
-          }, ${rgb[2] - 50})`;
+        e.target.style.backgroundColor = `rgb(${rgb[0] - 50}, ${rgb[1] - 50}, ${
+          rgb[2] - 50
+        })`;
       }
     } else if (dict.color == true) {
       let chosenColor = document.querySelector("#input-color").value;
